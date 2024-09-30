@@ -1,0 +1,33 @@
+name: Publish Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Package the project
+        run: dotnet pack -c Release
+
+      - name: Add the GitHub NuGet registry as a package source
+        run: |
+          dotnet nuget add source --username OWNER \
+          --password ${{ secrets.PACKAGE_TOKEN }} \
+          --store-password-in-clear-text --name github \
+          "https://nuget.pkg.github.com/inspirational-impala-inc/index.json"
+
+      - name: Publish the package
+        run: |
+          dotnet nuget push 'bin/Release/*.nupkg' --source \
+            'https://nuget.pkg.github.com/inspirational-impala-inc/index.json' \
+             --api-key ${{ secrets.PACKAGE_TOKEN }}
