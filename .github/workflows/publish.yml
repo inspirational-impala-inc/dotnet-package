@@ -21,7 +21,7 @@ jobs:
 
       - name: Add the GitHub NuGet registry as a package source
         run: |
-          dotnet nuget add source --username OWNER \
+          dotnet nuget add source \
           --password ${{ secrets.PACKAGE_TOKEN }} \
           --store-password-in-clear-text --name github \
           --name github \
