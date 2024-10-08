@@ -23,7 +23,6 @@ jobs:
         run: |
           dotnet nuget add source --username OWNER \
           --password ${{ secrets.PACKAGE_TOKEN }} \
-          --store-password-in-clear-text --name github \
           --name github \
           "https://nuget.pkg.github.com/inspirational-impala-inc/index.json"
 
