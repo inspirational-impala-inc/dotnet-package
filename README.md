@@ -9,3 +9,10 @@ The scopes used for the personal access token in the `publish.yml` workflow are:
 
 - `write: packages`
 - `read: packages`
+
+# Publishing a new package version
+
+1. Create a new branch.
+2. Bump the version in the `dotnet-package.csproj` file.
+3. Push the branch to the server.
+4. Run the `Publish Package` workflow.
